@@ -26,7 +26,11 @@ class CovidListAdapter: ListAdapter<CovidDailyData, CovidListAdapter.CovidViewHo
             binding.tvPositives.text = covidDailyData.positives.toString()
             binding.tvNegatives.text = covidDailyData.negatives.toString()
             binding.tvHospitalized.text = covidDailyData.hospitalized.toString()
-            binding.tvDead.text = covidDailyData.death.toString()
+            binding.tvDeath.text = covidDailyData.death.toString()
+        }
+
+        private fun formatDate(){
+
         }
     }
 

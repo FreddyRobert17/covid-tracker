@@ -33,10 +33,9 @@ class ListFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         binding.recyclerView.adapter = adapter
 
-        viewmodel.covidModel.observe(requireActivity(), Observer {
-            Log.i("KAYLA", it.toString())
-            adapter.submitList(it)
-        })
+        viewmodel.covidModel.observe(requireActivity()) { listCovidDailyData ->
+            adapter.submitList(listCovidDailyData)
+        }
 
         return binding.root
     }
