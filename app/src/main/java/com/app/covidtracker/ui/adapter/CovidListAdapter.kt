@@ -11,7 +11,7 @@ import com.app.covidtracker.databinding.CovidListItemBinding
 class CovidListAdapter: ListAdapter<CovidDailyData, CovidListAdapter.CovidViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CovidViewHolder {
-        val binding = CovidListItemBinding.inflate(LayoutInflater.from(parent.context))
+        val binding = CovidListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CovidViewHolder(binding)
     }
 

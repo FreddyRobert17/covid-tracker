@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.app.covidtracker.databinding.ActivityMainBinding
+import com.app.covidtracker.ui.adapter.CovidListAdapter
 import com.app.covidtracker.viewmodel.CovidViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,7 +19,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
-    private val viewmodel: CovidViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,10 +26,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupNavigation(binding)
-
-        viewmodel.covidModel.observe(this, Observer {
-            Log.i("TAG", it.toString())
-        })
     }
 
     private fun setupNavigation(binding: ActivityMainBinding) {
