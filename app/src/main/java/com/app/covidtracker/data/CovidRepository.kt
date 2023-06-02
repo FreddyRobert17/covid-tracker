@@ -1,5 +1,7 @@
 package com.app.covidtracker.data
 
+import com.app.covidtracker.data.network.CovidDailyData
+
 interface CovidRepository {
-    fun getTotalCases()
+    suspend fun getTotalCases(): List<CovidDailyData>
 }

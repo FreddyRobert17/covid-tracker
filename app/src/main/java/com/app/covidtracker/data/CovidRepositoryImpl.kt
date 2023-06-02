@@ -1,7 +1,11 @@
 package com.app.covidtracker.data
 
-class CovidRepositoryImpl: CovidRepository {
-    override fun getTotalCases() {
-        TODO("Not yet implemented")
+import com.app.covidtracker.data.network.CovidDailyData
+import com.app.covidtracker.data.network.CovidService
+import javax.inject.Inject
+
+class CovidRepositoryImpl @Inject constructor(private val covidService: CovidService) : CovidRepository {
+    override suspend fun getTotalCases(): List<CovidDailyData> {
+        return covidService.getTotalCases()
     }
 }
