@@ -1,6 +1,7 @@
 package com.app.covidtracker.di
 
 import com.app.covidtracker.data.network.CovidApiClient
+import com.app.covidtracker.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +19,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(): Retrofit{
         return Retrofit.Builder()
-            .baseUrl("https://api.covidtracking.com/v1/us/")
+            .baseUrl(Constants.API_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

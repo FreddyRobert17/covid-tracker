@@ -1,5 +1,6 @@
 package com.app.covidtracker.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -13,6 +14,8 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 class CovidListAdapter: ListAdapter<CovidDailyData, CovidListAdapter.CovidViewHolder>(DiffCallback) {
+
+    lateinit var onItemClickListener:  (CovidDailyData) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CovidViewHolder {
         val binding = CovidListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -31,6 +34,14 @@ class CovidListAdapter: ListAdapter<CovidDailyData, CovidListAdapter.CovidViewHo
             binding.tvNegatives.text = formatNumber(covidDailyData.negatives)
             binding.tvHospitalized.text = formatNumber(covidDailyData.hospitalized)
             binding.tvDeath.text = formatNumber(covidDailyData.death)
+
+            binding.ivHeart.setOnClickListener {
+                if(::onItemClickListener.isInitialized){
+                    onItemClickListener(covidDailyData)
+                } else {
+                    Log.e(CovidListAdapter::class.simpleName, "OnItemClickListener was not initialized")
+                }
+            }
         }
 
         private fun formatNumber(number: Int): String{
