@@ -7,6 +7,6 @@
 
     <item
         android:id="@+id/action_favorites_list"
-        android:icon="@drawable/heart_icon"
+        android:icon="@drawable/filled_heart_icon"
         android:title="@string/menu_favorites_list" />
 </menu>

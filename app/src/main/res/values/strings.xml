@@ -4,4 +4,16 @@
     <!--Bottom Menu Titles-->
     <string name="menu_items_list">Covid List</string>
     <string name="menu_favorites_list">Favorites</string>
+
+    <!--List Item -->
+    <string name="item_label_date">Date</string>
+    <string name="item_label_positives">Positives</string>
+    <string name="item_label_negatives">Negatives</string>
+    <string name="item_label_hospitalized">Hospitalized</string>
+    <string name="item_label_death">Death</string>
+    <string name="item_plus_icon_description">Plus sign</string>
+    <string name="item_minus_icon_description">Minus icon</string>
+    <string name="item_sick_person_icon_description">Sick person icon</string>
+    <string name="item_rip_icon_description">Rest in peace icon</string>
+    <string name="item_heart_icon_description">Heart icon</string>
 </resources>

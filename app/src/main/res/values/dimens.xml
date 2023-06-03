@@ -4,4 +4,6 @@
     <dimen name="card_margin">10dp</dimen>
     <dimen name="card_elevation">3dp</dimen>
     <dimen name="card_border_radius">10dp</dimen>
+    <dimen name="card_icon_width">25dp</dimen>
+    <dimen name="card_icon_height">25dp</dimen>
 </resources>

@@ -7,6 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.app.covidtracker.data.network.CovidDailyData
 import com.app.covidtracker.databinding.CovidListItemBinding
+import com.app.covidtracker.util.Constants
+import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class CovidListAdapter: ListAdapter<CovidDailyData, CovidListAdapter.CovidViewHolder>(DiffCallback) {
 
@@ -22,15 +26,24 @@ class CovidListAdapter: ListAdapter<CovidDailyData, CovidListAdapter.CovidViewHo
 
     inner class CovidViewHolder(private val binding: CovidListItemBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(covidDailyData: CovidDailyData){
-            binding.tvDate.text = covidDailyData.date.toString()
-            binding.tvPositives.text = covidDailyData.positives.toString()
-            binding.tvNegatives.text = covidDailyData.negatives.toString()
-            binding.tvHospitalized.text = covidDailyData.hospitalized.toString()
-            binding.tvDeath.text = covidDailyData.death.toString()
+            binding.tvDate.text = formatDate(covidDailyData.date.toString())
+            binding.tvPositives.text = formatNumber(covidDailyData.positives)
+            binding.tvNegatives.text = formatNumber(covidDailyData.negatives)
+            binding.tvHospitalized.text = formatNumber(covidDailyData.hospitalized)
+            binding.tvDeath.text = formatNumber(covidDailyData.death)
         }
 
-        private fun formatDate(){
+        private fun formatNumber(number: Int): String{
+            val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
+            return numberFormat.format(number)
+        }
 
+        private fun formatDate(rawDate: String): String{
+            val inputDateFormat = SimpleDateFormat(Constants.INPUT_DATE_FORMAT, Locale.getDefault())
+            val date = inputDateFormat.parse(rawDate)
+
+            val outputDateFormat = SimpleDateFormat(Constants.OUTPUT_DATE_FORMAT, Locale.getDefault())
+            return outputDateFormat.format(date)
         }
     }
 
