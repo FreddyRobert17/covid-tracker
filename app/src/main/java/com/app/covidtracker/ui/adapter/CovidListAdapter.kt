@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.app.covidtracker.data.network.CovidDailyData
+import com.app.covidtracker.R
+import com.app.covidtracker.data.model.CovidDailyData
 import com.app.covidtracker.databinding.CovidListItemBinding
 import com.app.covidtracker.util.Constants
 import java.text.NumberFormat
@@ -15,7 +16,7 @@ import java.util.Locale
 
 class CovidListAdapter: ListAdapter<CovidDailyData, CovidListAdapter.CovidViewHolder>(DiffCallback) {
 
-    lateinit var onItemClickListener:  (CovidDailyData) -> Unit
+    lateinit var onLikeClickListener:  (CovidDailyData) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CovidViewHolder {
         val binding = CovidListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -35,12 +36,29 @@ class CovidListAdapter: ListAdapter<CovidDailyData, CovidListAdapter.CovidViewHo
             binding.tvHospitalized.text = formatNumber(covidDailyData.hospitalized)
             binding.tvDeath.text = formatNumber(covidDailyData.death)
 
+            updateLikeIconState(covidDailyData)
+
+            setOnLikeClickListener(covidDailyData)
+        }
+
+        private fun setOnLikeClickListener(covidDailyData: CovidDailyData){
             binding.ivHeart.setOnClickListener {
-                if(::onItemClickListener.isInitialized){
-                    onItemClickListener(covidDailyData)
+                if(::onLikeClickListener.isInitialized){
+                    onLikeClickListener(covidDailyData)
                 } else {
                     Log.e(CovidListAdapter::class.simpleName, "OnItemClickListener was not initialized")
+                    return@setOnClickListener
                 }
+
+                updateLikeIconState(covidDailyData)
+            }
+        }
+
+        private fun updateLikeIconState(covidDailyData: CovidDailyData){
+            if(covidDailyData.isFavorite) {
+                binding.ivHeart.setImageResource(R.drawable.filled_heart_icon)
+            } else {
+                binding.ivHeart.setImageResource(R.drawable.empty_heart_icon)
             }
         }
 
@@ -60,7 +78,7 @@ class CovidListAdapter: ListAdapter<CovidDailyData, CovidListAdapter.CovidViewHo
 
     companion object DiffCallback: DiffUtil.ItemCallback<CovidDailyData>(){
         override fun areItemsTheSame(oldItem: CovidDailyData, newItem: CovidDailyData): Boolean {
-            return oldItem.date == newItem.date
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: CovidDailyData, newItem: CovidDailyData): Boolean {

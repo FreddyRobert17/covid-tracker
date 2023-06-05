@@ -1,5 +1,6 @@
 package com.app.covidtracker.data.network
 
+import com.app.covidtracker.data.model.CovidDailyData
 import javax.inject.Inject
 
 class CovidService @Inject constructor(private val api: CovidApiClient) {
