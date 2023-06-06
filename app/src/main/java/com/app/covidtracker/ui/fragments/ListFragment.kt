@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.covidtracker.databinding.FragmentListBinding
 import com.app.covidtracker.ui.adapter.CovidListAdapter
@@ -19,6 +18,7 @@ class ListFragment : Fragment() {
 
     private val viewmodel: CovidViewModel by viewModels()
     private lateinit var binding: FragmentListBinding
+    private lateinit var adapter: CovidListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,25 +28,42 @@ class ListFragment : Fragment() {
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
-        val adapter = CovidListAdapter()
+        adapter = CovidListAdapter()
         binding.recyclerView.adapter = adapter
 
         viewmodel.listDailyData.observe(requireActivity()) { listCovidDailyData ->
             adapter.submitList(listCovidDailyData)
         }
 
+        showViewsOnApiResponseStatus()
+
+        setOnLikeClickListener()
+
+        return binding.root
+    }
+
+    private fun showViewsOnApiResponseStatus() {
         viewmodel.apiResponseStatus.observe(requireActivity()) { apiResponseStatus ->
             if (apiResponseStatus == CovidApiResponseStatus.LOADING) {
                 binding.progressBar.visibility = View.VISIBLE
+                binding.ivNetworkError.visibility = View.GONE
+                binding.tvNetworkError.visibility = View.GONE
+                binding.tryAgainButton.visibility = View.GONE
             } else if (apiResponseStatus == CovidApiResponseStatus.DONE) {
                 binding.progressBar.visibility = View.GONE
             } else if (apiResponseStatus == CovidApiResponseStatus.ERROR) {
                 binding.progressBar.visibility = View.GONE
                 binding.ivNetworkError.visibility = View.VISIBLE
                 binding.tvNetworkError.visibility = View.VISIBLE
+                binding.tryAgainButton.visibility = View.VISIBLE
+                binding.tryAgainButton.setOnClickListener {
+                    viewmodel.reloadDailyDataFromNetwork()
+                }
             }
         }
+    }
 
+    private fun setOnLikeClickListener(){
         adapter.onLikeClickListener = { covidDailyData ->
             if(covidDailyData.isFavorite){
                 viewmodel.updateDailyData(covidDailyData.apply {
@@ -58,7 +75,5 @@ class ListFragment : Fragment() {
                 })
             }
         }
-
-        return binding.root
     }
 }

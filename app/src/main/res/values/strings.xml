@@ -20,4 +20,5 @@
     <string name="item_not_found_text">Not found results</string>
     <string name="item_network_error_icon_description">No internet connexion icon</string>
     <string name="item_network_error_text">Check your internet connection</string>
+    <string name="item_try_again_button_text">Try again</string>
 </resources>

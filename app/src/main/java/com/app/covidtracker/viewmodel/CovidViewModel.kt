@@ -66,4 +66,8 @@ class CovidViewModel @Inject constructor(private val covidRepositoryImpl: CovidR
             covidRepositoryImpl.updateDailyData(covidDailyData)
         }
     }
+
+    fun reloadDailyDataFromNetwork(){
+        loadDailyDataFromNetwork()
+    }
 }
