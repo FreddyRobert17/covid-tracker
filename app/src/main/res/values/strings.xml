@@ -16,4 +16,6 @@
     <string name="item_sick_person_icon_description">Sick person icon</string>
     <string name="item_rip_icon_description">Rest in peace icon</string>
     <string name="item_heart_icon_description">Heart icon</string>
+    <string name="item_not_found_icon_description">Loupe icon</string>
+    <string name="item_not_found_text">Not found results</string>
 </resources>

@@ -34,7 +34,12 @@ class FavoritesFragment : Fragment() {
         binding.recyclerView.adapter = adapter
 
         viewmodel.favoritesList.observe(requireActivity()) { covidDailyDataList ->
-            adapter.submitList(covidDailyDataList)
+            if(covidDailyDataList.isEmpty()){
+                binding.ivNotFound.visibility = View.VISIBLE
+                binding.tvNotFound.visibility = View.VISIBLE
+            } else {
+                adapter.submitList(covidDailyDataList)
+            }
         }
 
         viewmodel.getFavoriteDailyData()
