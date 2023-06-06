@@ -42,6 +42,8 @@ class ListFragment : Fragment() {
                 binding.progressBar.visibility = View.GONE
             } else if (apiResponseStatus == CovidApiResponseStatus.ERROR) {
                 binding.progressBar.visibility = View.GONE
+                binding.ivNetworkError.visibility = View.VISIBLE
+                binding.tvNetworkError.visibility = View.VISIBLE
             }
         }
 

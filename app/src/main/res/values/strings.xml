@@ -18,4 +18,6 @@
     <string name="item_heart_icon_description">Heart icon</string>
     <string name="item_not_found_icon_description">Loupe icon</string>
     <string name="item_not_found_text">Not found results</string>
+    <string name="item_network_error_icon_description">No internet connexion icon</string>
+    <string name="item_network_error_text">Check your internet connection</string>
 </resources>
